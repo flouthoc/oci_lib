@@ -23,9 +23,6 @@ fn main() {
     }
 }
 ```
-
-### License
-MIT
 ### References
 * https://opencontainers.org/
 * https://github.com/opencontainers/image-spec/blob/master/specs-go/v1/config.go
