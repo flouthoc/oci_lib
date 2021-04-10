@@ -6,6 +6,12 @@ const {
   JSONSchemaStore,
 } = require("quicktype-core");
 const $RefParser = require("@apidevtools/json-schema-ref-parser");
+
+const BREAKLINE = "\n";
+const SCHEMA_ENTRYPOINT = "config-schema.json";
+const BASE_STRUCT_RUNTIME_SPEC = "Spec";
+const BASE_STRUCT_IMAGE_SPEC = "ImageSpec";
+
 var fs = require('fs');
 
 function writeFile(fileName, data){
@@ -23,6 +29,7 @@ async function quicktypeJSONSchema(targetLanguage, typeName, jsonSchemaString) {
   inputData.addInput(schemaInput);
   return await quicktype({
     inputData,
+    rendererOptions: { visibility: "public" },
     lang: targetLanguage,
   });
 }
@@ -45,8 +52,7 @@ async function generateSchema(parentStructName ,schema, fileName) {
     parentStructName, 
     schema
   );
-  //console.log(rustSpec);
-  writeFile(fileName, rustSpec.join("\n"));
+  writeFile(fileName, rustSpec.join(BREAKLINE));
 }
 
 function generator(parentStructName ,base, entryPoint, outputPath){
@@ -57,5 +63,5 @@ function generator(parentStructName ,base, entryPoint, outputPath){
   process.chdir(rootPath);
 }
 
-generator('Spec','./runtime-spec/schema', 'config-schema.json', 'src/runtime/mod.rs');
-generator('ImageSpec','./image-spec/schema', 'config-schema.json', 'src/image/mod.rs');
+generator(BASE_STRUCT_RUNTIME_SPEC,'./runtime-spec/schema', SCHEMA_ENTRYPOINT, 'src/runtime/mod.rs');
+generator(BASE_STRUCT_IMAGE_SPEC,'./image-spec/schema', SCHEMA_ENTRYPOINT, 'src/image/mod.rs');
