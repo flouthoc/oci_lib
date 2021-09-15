@@ -1,6 +1,8 @@
 # oci_lib
 Oci-Spec for your container runtime or container registry.
 - - -
+Most of the code is mirrored from upstream [libocispec](https://github.com/containers/libocispec)
+
 Oci-lib is a rust port for original oci spec written in go. Following crate contains rust equivalent spec for OCI Image Format Specification ( https://github.com/opencontainers/image-spec ) and OCI Runtime format specification (https://github.com/opencontainers/runtime-spec).
 
 ## Motivation
